@@ -9,11 +9,31 @@
 </head>
 
 <body>
-  <h1>This is an iFrame test of dev</h1>
-  <a target="none" href="https://webcalc-dev.omnicar.io/1">https://webcalc-dev.omnicar.io/1</a>
+  <h1>This is an iFrame test</h1>
+  <h3>Please pick an environment:</h3>
+  <select id="environments">
+    <option value="https://webcalc-dev.omnicar.io/1">Dev</option>
+    <option value="https://webcalc-staging.omnicar.io/1">Staging</option>
+    <option value="https://webcalc-prod.omnicar.io/1">Live</option>
+  </select>
   </br>
-  <iframe width="960" height="1800" allowtransparency="true" style="text-align: center; display: block; margin: 0 auto; border: 2px solid;"
+  <a id="selected-environment" target="none" href="https://webcalc-dev.omnicar.io/1">https://webcalc-dev.omnicar.io/1</a>
+  </br>
+  <iframe id="sam-frame" width="960" height="1800" allowtransparency="true" style="text-align: center; display: block; margin: 0 auto; border: 2px solid;"
     src="https://webcalc-dev.omnicar.io/1"></iframe>
+  <script src="./jquery-3.2.1.min.js" type="application/javascript"></script>
+  <script type="application/javascript">
+    $(document).ready(() => {
+      console.log('ready')
+      const $link = $('#selected-environment')
+      const $frame = $('#sam-frame')
+      $('#environments').change(function (e) {
+        $link.attr('href', this.value)
+        $link.html(this.value)
+        $frame.attr('src', this.value)
+      })
+    })
+  </script>
 </body>
 
 </html>>
