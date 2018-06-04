@@ -6,27 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>iFrame test of SAM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-  <h1>This is an iFrame test</h1>
-  <h3>Please pick an environment:</h3>
-  <select id="environments">
-    <option value="https://webcalc-dev.omnicar.io/1">Dev</option>
-    <option value="http://localhost:3000/1">Dev Local</option>
-    <option value="http://10.0.2.2:3000/1">Dev Local - VirtualBox</option>
-    <option value="https://webcalc-staging.omnicar.io/1">Staging</option>
-    <option value="https://webcalc-prod.omnicar.io/1">Live</option>
-  </select>
-  </br>
-  <a id="selected-environment" target="none" href="https://webcalc-dev.omnicar.io/1">https://webcalc-dev.omnicar.io/1</a>
-  </br>
-  <iframe id="sam-frame" width="960" height="1800" allowtransparency="true" style="text-align: center; display: block; margin: 0 auto; border: 2px solid;"
-    src="https://webcalc-dev.omnicar.io/1"></iframe>
   <script src="./jquery-3.2.1.min.js" type="application/javascript"></script>
   <script type="application/javascript">
-    $(document).ready(() => {
-      console.log('ready')
+    $(document).ready(function () {
       const $link = $('#selected-environment')
       const $frame = $('#sam-frame')
       $('#environments').change(function (e) {
@@ -36,6 +18,49 @@
       })
     })
   </script>
+  <style>
+    .root__header {
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+
+    .root__title {
+      font-size: 21px;
+      margin: 30px 0 10px 0;
+    }
+
+    .root__subtitle {
+      font-size: 16px;
+      margin: 0 0 8px 0;
+    }
+
+    .root__information-title {
+      font-size: 14px;
+      margin: 12px 0 12px 0;
+    }
+  </style>
+</head>
+
+<body class="root">
+  <div class="root__header">
+    <h1 class="root__title">SAM - WebCalc IFrame Test Environment</h1>
+    <h2 class="root__subtitle">Please pick a server</h2>
+    <select id="environments" class="root__selection">
+      <option value="https://webcalc-dev.omnicar.io/1">Dev</option>
+      <option value="http://localhost:3000/1">Dev Local</option>
+      <option value="https://webcalc-staging.omnicar.io/1">Staging</option>
+      <option value="https://webcalc-prod.omnicar.io/1">Live</option>
+    </select>
+    <div class="root__information">
+      <h3 class="root__information-title">Current Environment</h3>
+      <a id="selected-environment" target="none" href="https://webcalc-dev.omnicar.io/1">https://webcalc-dev.omnicar.io/1</a>
+    </div>
+  </div>
+
+  <div class="root__body">
+    <iframe id="sam-frame" width="960" height="1800" allowtransparency="true" style="text-align: center; display: block; margin: 0 auto; border: 2px solid;"
+      src="https://webcalc-dev.omnicar.io/1"></iframe>
+  </div>
 </body>
 
 </html>
