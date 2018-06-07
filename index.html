@@ -46,6 +46,16 @@
         $frame.attr('src', url)
       })
 
+      // aside sizes select
+      const sizes = [0, 10, 20, 30, 40, 50]
+      sizes.forEach((el, i) => {
+        $('<option>').val(el).text(`${el} %`).appendTo('#aside-sizes')
+      })
+      $('#aside-sizes').change(function (e) {
+        $('#aside').css("width", `${this.value}%`)
+        $('#frame-container').css("width", `${100 - parseInt(this.value, 10)}%`)
+      })
+
       // set iframe src on load
       selectedEnv = $environments.find("option:selected").val()
       selectedProvider = $providers.find("option:selected").text()
@@ -54,48 +64,79 @@
     })
   </script>
   <style>
-    .root__header {
-      margin: 0 auto 20px auto;
+    html,
+    body {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       text-align: center;
     }
 
-    .root__title {
-      font-size: 21px;
-      margin: 30px 0 10px 0;
+    .container {
+      overflow: hidden;
+      margin-top: 20px;
     }
 
-    .root__subtitle {
-      font-size: 16px;
-      margin: 0 0 8px 0;
+    .select-environment,
+    .select-aside {
+      display: inline-block;
     }
 
-    .root__information-title {
-      font-size: 14px;
-      margin: 12px 0 12px 0;
+    .select-environment {
+      margin-right: 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    h3 {
+      font-size: 1rem;
     }
   </style>
 </head>
 
-<body class="root">
-  <div class="root__header">
-    <h1 class="root__title">SAM - WebCalc IFrame Test Environment</h1>
-    <h2 class="root__subtitle">Please pick a server and provider</h2>
-    <select id="environments" class="root__selection">
-      <option value="https://serviceagreement-dev.omnicar.io/">Dev</option>
-      <option value="https://serviceagreement-staging.omnicar.io/">Staging</option>
-      <option value="https://serviceagreement.omnicar.io/">Live</option>
-      <option value="http://localhost:3000/">Dev Local</option>
-    </select>
-    <select id="providers" class="root__selection"></select>
-    <div class="root__information">
-      <h3 class="root__information-title">Current Environment</h3>
-      <a id="selected-environment" target="none" href="https://serviceagreement-dev.omnicar.io/1">https://serviceagreement-dev.omnicar.io/1</a>
+<body>
+  <header>
+    <h1>SAM - WebCalc IFrame Test Environment</h1>
+    <div class="selects">
+      <div class="select-environment">
+        <h2>Environment and provider</h2>
+        <select id="environments">
+          <option value="https://serviceagreement-dev.omnicar.io/">Dev</option>
+          <option value="https://serviceagreement-staging.omnicar.io/">Staging</option>
+          <option value="https://serviceagreement.omnicar.io/">Live</option>
+          <option value="http://localhost:3000/">Dev Local</option>
+        </select>
+        <select id="providers"></select>
+      </div>
+      <div class="select-aside">
+        <h2>Aside width (pct)</h2>
+        <select id="aside-sizes"></select>
+      </div>
     </div>
-  </div>
+    <div>
+      <h3>
+        <a id="selected-environment" target="none" href="https://serviceagreement-dev.omnicar.io/1">https://serviceagreement-dev.omnicar.io/1</a>
+      </h3>
 
-  <div class="root__body">
-    <iframe id="sam-frame" width="100%" height="1900" allowtransparency="true" style="text-align: center; display: block; margin: 0 auto; border: 2px solid;"
-      scrolling="yes" style="text-align: center; display: block; margin: 0 auto; padding: 0; border: none;" src="https://serviceagreement-dev.omnicar.io/1"></iframe>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside id="aside" style="height: 1900px; background:#ccc; float:left;"></aside>
+    <div id="frame-container" style="float: left; width: 80%;">
+      <iframe id="sam-frame" width="100%" height="1900" allowtransparency="true " style="text-align: center; display:
+        block; margin: 0 auto; border: 1px solid;" scrolling="yes " style="text-align: center; display: block; margin: 0 auto;
+        padding: 0; border: none; " src="https://serviceagreement-dev.omnicar.io/1 "></iframe>
+    </div>
+
   </div>
 </body>
 
