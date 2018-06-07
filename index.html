@@ -11,10 +11,37 @@
     $(document).ready(function () {
       const $link = $('#selected-environment')
       const $frame = $('#sam-frame')
+      let url = ''
+      let selectedEnv
+      let selectedProvider
+
+      // env select
       $('#environments').change(function (e) {
-        $link.attr('href', this.value)
-        $link.html(this.value)
-        $frame.attr('src', this.value)
+        // get selected provider
+        selectedProvider = $("#provider-select option:selected").text()
+        // concat url
+        url = this.value + selectedProvider
+        // set link href + text
+        $link.attr('href', url)
+        $link.html(url)
+        // set iframe src
+        $frame.attr('src', url)
+      })
+
+      // provider select
+      const providerIds = Array.apply(null, { length: 200 }).map(Number.call, Number)
+      providerIds.forEach((el, i) => {
+        $('<option>').val(i + 1).text(i + 1).appendTo('#provider-select')
+      })
+      $('#provider-select').change(function (e) {
+        // concat url
+        selectedEnv = $("#environments option:selected").val()
+        url = selectedEnv + this.value
+        // set link href + text
+        $link.attr('href', url)
+        $link.html(url)
+        // set iframe src
+        $frame.attr('src', url)
       })
     })
   </script>
@@ -44,16 +71,17 @@
 <body class="root">
   <div class="root__header">
     <h1 class="root__title">SAM - WebCalc IFrame Test Environment</h1>
-    <h2 class="root__subtitle">Please pick a server</h2>
+    <h2 class="root__subtitle">Please pick a server and provider</h2>
     <select id="environments" class="root__selection">
-      <option value="https://webcalc-dev.omnicar.io/1">Dev</option>
-      <option value="http://localhost:3000/1">Dev Local</option>
-      <option value="https://webcalc-staging.omnicar.io/1">Staging</option>
-      <option value="https://webcalc-prod.omnicar.io/1">Live</option>
+      <option value="https://serviceagreement-dev.omnicar.io/">Dev</option>
+      <option value="https://serviceagreement-staging.omnicar.io/">Staging</option>
+      <option value="https://serviceagreement.omnicar.io/">Live</option>
+      <option value="http://localhost:3000/">Dev Local</option>
     </select>
+    <select id="provider-select" class="root__selection"></select>
     <div class="root__information">
       <h3 class="root__information-title">Current Environment</h3>
-      <a id="selected-environment" target="none" href="https://webcalc-dev.omnicar.io/1">https://webcalc-dev.omnicar.io/1</a>
+      <a id="selected-environment" target="none" href="https://serviceagreement-dev.omnicar.io/1">https://serviceagreement-dev.omnicar.io/1</a>
     </div>
   </div>
 
